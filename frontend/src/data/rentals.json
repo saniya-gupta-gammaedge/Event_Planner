@@ -1,0 +1,6 @@
+[
+  { "id": "chairs", "title": "Chairs", "icon": "🪑" },
+  { "id": "pillows", "title": "Pillows", "icon": "🛋️" },
+  { "id": "beds", "title": "Beds / Mattresses", "icon": "🛏️" },
+  { "id": "carpets", "title": "Carpets", "icon": "🟪" }
+]

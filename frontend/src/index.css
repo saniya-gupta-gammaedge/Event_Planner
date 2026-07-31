@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-maroon-light: #8f2038;
+  --color-maroon: #6d0f22;
+  --color-maroon-dark: #4a0a17;
+  --color-gold: #d9a83f;
+  --color-gold-light: #f0c869;
+  --color-cream: #fdf8ec;
+  --color-cream-dark: #f5ecd8;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, 'Segoe UI', Roboto, sans-serif;
+  background: var(--color-cream);
+}
+
+h1, h2, h3, .font-display {
+  font-family: 'Playfair Display', 'Georgia', serif;
+}
+
+.gold-divider {
+  height: 3px;
+  width: 90px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  margin: 0 auto;
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "gate",
+    "title": "Gate Decoration",
+    "icon": "🎪",
+    "description": "Flower and light decoration for the main entrance gate of your event."
+  },
+  {
+    "id": "passage",
+    "title": "Passage Decoration",
+    "icon": "🛤️",
+    "description": "Decorated walkway from the gate to the main hall, with flowers, cloth and lights."
+  },
+  {
+    "id": "stage",
+    "title": "Stage Decoration",
+    "icon": "🎭",
+    "description": "Stage setup and decoration for weddings, functions and programs."
+  },
+  {
+    "id": "dj",
+    "title": "DJ Sound",
+    "icon": "🔊",
+    "description": "DJ sound system for weddings, parties and functions of any size."
+  },
+  {
+    "id": "lighting",
+    "title": "Lighting",
+    "icon": "💡",
+    "description": "Coloured lights, moving lights and decorative lighting for your event."
+  },
+  {
+    "id": "decoration",
+    "title": "Decoration",
+    "icon": "🌸",
+    "description": "Full decoration service for halls, mandap and open venues."
+  },
+  {
+    "id": "jagran",
+    "title": "Aamsabha / Jagran",
+    "icon": "🙏",
+    "description": "Setup for jagran, aamsabha and other religious or public gatherings."
+  },
+  {
+    "id": "orchestra",
+    "title": "Orchestra",
+    "icon": "🎶",
+    "description": "Live orchestra arrangement for your function."
+  },
+  {
+    "id": "meeting",
+    "title": "Meeting Setup",
+    "icon": "🪑",
+    "description": "Chairs, sound and stage setup for meetings and open house programs."
+  }
+]
