@@ -6,6 +6,7 @@ import CallButton from './components/CallButton'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Gallery from './pages/Gallery'
+import Videos from './pages/Videos'
 import Rent from './pages/Rent'
 import About from './pages/About'
 import Contact from './pages/Contact'
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/videos" element={<Videos />} />
           <Route path="/rent" element={<Rent />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
