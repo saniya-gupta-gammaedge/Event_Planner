@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
@@ -11,6 +11,9 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 
 function App() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
   return (
     <div className="min-h-screen flex flex-col text-neutral-800">
       <Navbar />
@@ -24,7 +27,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
-      <Footer />
+      {isHome && <Footer />}
       <CallButton />
       <WhatsAppButton />
     </div>
