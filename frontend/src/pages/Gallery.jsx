@@ -1,4 +1,5 @@
 import { gallery } from '../data/gallery'
+import GalleryCard from '../components/GalleryCard'
 
 export default function Gallery() {
   return (
@@ -7,16 +8,7 @@ export default function Gallery() {
       <p className="text-neutral-600 mb-10">Some of our tent, decoration and lighting setups.</p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {gallery.map((item) => (
-          <div key={item.id} className="rounded-xl overflow-hidden shadow-sm border border-gold/30">
-            <img
-              src={item.src}
-              alt={item.caption}
-              className="w-full h-56 object-cover"
-            />
-            <p className="text-sm font-medium text-maroon bg-white p-2 text-center">
-              {item.caption}
-            </p>
-          </div>
+          <GalleryCard key={item.id} item={item} />
         ))}
       </div>
     </div>
