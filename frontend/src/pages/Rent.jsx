@@ -4,13 +4,13 @@ import { whatsappLink, callLink } from '../data/company'
 
 export default function Rent() {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16">
+    <div className="max-w-5xl mx-auto px-4 py-8">
       <h1 className="font-display text-3xl font-bold text-maroon mb-2 text-center">Rent Items</h1>
-      <p className="text-neutral-600 mb-10 text-center">
+      <p className="text-neutral-600 mb-6 text-center">
         Price depends on how many you need and for how long. Call or WhatsApp us for a rate.
       </p>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-14">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-8">
         {rentals.map((item) => (
           <div
             key={item.id}
@@ -22,7 +22,7 @@ export default function Rent() {
         ))}
       </div>
 
-      <div className="rounded-xl bg-white border border-gold/40 p-6 sm:p-8 mb-10">
+      <div className="rounded-xl bg-white border border-gold/40 p-6 sm:p-8 mb-8">
         <h2 className="font-display text-xl font-semibold text-maroon mb-2">Generator on Rent</h2>
         <p className="text-neutral-600 mb-4">Generators always available for rent, in these sizes:</p>
         <div className="flex flex-wrap gap-3">
