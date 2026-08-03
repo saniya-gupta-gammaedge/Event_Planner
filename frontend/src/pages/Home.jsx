@@ -1,21 +1,16 @@
 import { Link } from 'react-router-dom'
 import { company, whatsappLink } from '../data/company'
-import heroVideo from '../assets/videos/hero-loop.mp4'
-import heroPoster from '../assets/videos/hero-poster.jpg'
+import hero from '../assets/photos/stage-lounge-floral.jpg'
 
 export default function Home() {
   return (
     <div>
+      <img
+        src={hero}
+        alt="Event decoration by Dhote Tent & Lighting House"
+        className="w-full h-56 sm:h-80 md:h-[420px] object-cover"
+      />
       <section className="bg-gradient-to-b from-cream to-gold-light/30 px-4 py-8 sm:py-10 text-center">
-        <video
-          src={heroVideo}
-          poster={heroPoster}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="mx-auto rounded-2xl w-full max-w-md sm:max-w-lg aspect-video object-cover mb-5 shadow-lg border-2 border-gold"
-        />
         <h1 className="font-display text-3xl sm:text-5xl font-bold text-maroon mb-3">
           {company.name}
         </h1>
