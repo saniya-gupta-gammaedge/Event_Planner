@@ -11,7 +11,7 @@ export default function About() {
           <img
             src={anilPhoto}
             alt="Anil Kumar Dhote"
-            className="w-40 h-40 sm:w-48 sm:h-48 rounded-lg object-cover shadow-md"
+            className="w-56 h-56 sm:w-64 sm:h-64 rounded-lg object-cover shadow-md border-4 border-gold"
           />
           <p className="font-display text-lg font-semibold text-maroon mt-2">Anil Kumar Dhote</p>
           <p className="text-sm text-neutral-500">Owner</p>
