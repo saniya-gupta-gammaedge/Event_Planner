@@ -1,6 +1,133 @@
 [
-  { "id": "chairs", "title": "Chairs", "icon": "🪑" },
-  { "id": "pillows", "title": "Pillows", "icon": "🛋️" },
-  { "id": "beds", "title": "Beds / Mattresses", "icon": "🛏️" },
-  { "id": "carpets", "title": "Carpets", "icon": "🟪" }
+  {
+    "id": "chairs",
+    "title": "Chairs",
+    "icon": "🪑",
+    "items": [
+      {
+        "id": "plastic-chair",
+        "name": "Plastic Chair",
+        "description": "Comfortable plastic chair for weddings, parties and events.",
+        "unit": "chair",
+        "available": true,
+        "pricing": {
+          "hour": 8,
+          "day": 20
+        }
+      },
+      {
+        "id": "steel-chair",
+        "name": "Steel Chair",
+        "description": "Strong steel chair suitable for indoor and outdoor events.",
+        "unit": "chair",
+        "available": true,
+        "pricing": {
+          "hour": 10,
+          "day": 25
+        }
+      }
+    ]
+  },
+  {
+    "id": "pillows",
+    "title": "Pillows",
+    "icon": "🛋️",
+    "items": [
+      {
+        "id": "standard-pillow",
+        "name": "Standard Pillow",
+        "description": "Soft and comfortable pillow.",
+        "unit": "piece",
+        "available": true,
+        "pricing": {
+          "hour": 5,
+          "day": 15
+        }
+      }
+    ]
+  },
+  {
+    "id": "beds",
+    "title": "Beds / Mattresses",
+    "icon": "🛏️",
+    "items": [
+      {
+        "id": "single-mattress",
+        "name": "Single Mattress",
+        "description": "Single size mattress.",
+        "unit": "piece",
+        "available": true,
+        "pricing": {
+          "hour": 20,
+          "day": 80
+        }
+      },
+      {
+        "id": "double-mattress",
+        "name": "Double Mattress",
+        "description": "Double size mattress.",
+        "unit": "piece",
+        "available": true,
+        "pricing": {
+          "hour": 30,
+          "day": 120
+        }
+      }
+    ]
+  },
+  {
+    "id": "carpets",
+    "title": "Carpets",
+    "icon": "🟪",
+    "items": [
+      {
+        "id": "red-carpet",
+        "name": "Red Carpet",
+        "description": "Premium red carpet for events and weddings.",
+        "unit": "piece",
+        "available": true,
+        "pricing": {
+          "hour": 50,
+          "day": 200
+        }
+      }
+    ]
+  },
+  {
+    "id": "generators",
+    "title": "Generators",
+    "icon": "⚡",
+    "items": [
+      {
+        "id": "40kv",
+        "name": "40 KV Generator",
+        "description": "Suitable for small events.",
+        "unit": "generator",
+        "available": true,
+        "pricing": {
+          "day": 4000
+        }
+      },
+      {
+        "id": "62kv",
+        "name": "62 KV Generator",
+        "description": "Suitable for medium-sized events.",
+        "unit": "generator",
+        "available": true,
+        "pricing": {
+          "day": 6000
+        }
+      },
+      {
+        "id": "82kv",
+        "name": "82 KV Generator",
+        "description": "Suitable for large events.",
+        "unit": "generator",
+        "available": true,
+        "pricing": {
+          "day": 8000
+        }
+      }
+    ]
+  }
 ]

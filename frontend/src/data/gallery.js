@@ -18,6 +18,11 @@ import placeholderB from '../assets/photos/placeholder-b.jpg'
 
 const placeholders = [placeholderA, placeholderB]
 
+/** "Photo coming soon" slots — shown in the grid, skipped by the lightbox. */
+export function isPlaceholder(src) {
+  return placeholders.includes(src)
+}
+
 export const gallery = [
   { id: 1, caption: 'Gate Decoration', images: [gateChandelierAisle, gateArch] },
   { id: 2, caption: 'Passage Decoration', images: [aisleWalkway, passageChandelier1, passageChandelier2] },

@@ -1,21 +1,22 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
+import ScrollToTop from './components/ScrollToTop'
+import { usePageMeta } from './hooks/usePageMeta'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Gallery from './pages/Gallery'
 import Videos from './pages/Videos'
 import Rent from './pages/Rent'
 import About from './pages/About'
-import Contact from './pages/Contact'
 
 function App() {
-  const location = useLocation()
-  const isHome = location.pathname === '/'
+  usePageMeta()
 
   return (
     <div className="min-h-screen flex flex-col text-neutral-800">
+      <ScrollToTop />
       <Navbar />
       <main className="flex-1">
         <Routes>
@@ -25,10 +26,10 @@ function App() {
           <Route path="/videos" element={<Videos />} />
           <Route path="/rent" element={<Rent />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      {isHome && <Footer />}
+      <Footer />
       <WhatsAppButton />
     </div>
   )
