@@ -28,7 +28,7 @@ export default function GalleryCard({ item }) {
               type="button"
               onClick={prev}
               aria-label="Previous photo"
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white text-maroon text-xl font-bold shadow-md ring-1 ring-gold/50 flex items-center justify-center hover:bg-gold-light transition-colors"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/40 backdrop-blur-sm text-white text-lg flex items-center justify-center hover:bg-white/60 transition-colors"
             >
               ‹
             </button>
@@ -36,7 +36,7 @@ export default function GalleryCard({ item }) {
               type="button"
               onClick={next}
               aria-label="Next photo"
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white text-maroon text-xl font-bold shadow-md ring-1 ring-gold/50 flex items-center justify-center hover:bg-gold-light transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/40 backdrop-blur-sm text-white text-lg flex items-center justify-center hover:bg-white/60 transition-colors"
             >
               ›
             </button>
@@ -44,7 +44,7 @@ export default function GalleryCard({ item }) {
               {item.images.map((_, i) => (
                 <span
                   key={i}
-                  className={`w-2 h-2 rounded-full border border-black/30 ${i === index ? 'bg-gold' : 'bg-white/80'}`}
+                  className={`w-1.5 h-1.5 rounded-full ${i === index ? 'bg-white/90' : 'bg-white/40'}`}
                 />
               ))}
             </div>

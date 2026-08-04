@@ -13,16 +13,20 @@ import cateringCounterNight from '../assets/photos/catering-counter-night.jpg'
 import cateringCounters from '../assets/photos/catering-counters.jpg'
 import mehndiSeating from '../assets/photos/mehndi-seating.jpg'
 import colorfulEntrance from '../assets/photos/colorful-entrance.jpg'
+import placeholderA from '../assets/photos/placeholder-a.jpg'
+import placeholderB from '../assets/photos/placeholder-b.jpg'
+
+const placeholders = [placeholderA, placeholderB]
 
 export const gallery = [
   { id: 1, caption: 'Gate Decoration', images: [gateChandelierAisle, gateArch] },
   { id: 2, caption: 'Passage Decoration', images: [aisleWalkway, passageChandelier1, passageChandelier2] },
-  { id: 3, caption: 'Mandap Decoration', images: [mandapIdol] },
-  { id: 4, caption: 'Stage Decoration', images: [stageLoungeFloral] },
-  { id: 5, caption: 'Seating Setup', images: [loungeSeating] },
-  { id: 6, caption: 'Photo Booth Decoration', images: [gardenWallBackdrop] },
-  { id: 7, caption: 'Theme Decoration', images: [themeBackdrop] },
+  { id: 3, caption: 'Mandap Decoration', images: [mandapIdol, ...placeholders] },
+  { id: 4, caption: 'Stage Decoration', images: [stageLoungeFloral, ...placeholders] },
+  { id: 5, caption: 'Seating Setup', images: [loungeSeating, ...placeholders] },
+  { id: 6, caption: 'Photo Booth Decoration', images: [gardenWallBackdrop, ...placeholders] },
+  { id: 7, caption: 'Theme Decoration', images: [themeBackdrop, ...placeholders] },
   { id: 8, caption: 'Counter Setup', images: [barCounter, cateringCounterNight, cateringCounters] },
-  { id: 9, caption: 'Mehndi Setup', images: [mehndiSeating] },
-  { id: 10, caption: 'Lighting & Decoration', images: [colorfulEntrance] },
+  { id: 9, caption: 'Mehndi Setup', images: [mehndiSeating, ...placeholders] },
+  { id: 10, caption: 'Lighting & Decoration', images: [colorfulEntrance, ...placeholders] },
 ]
