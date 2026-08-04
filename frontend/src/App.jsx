@@ -2,7 +2,6 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
-import CallButton from './components/CallButton'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Gallery from './pages/Gallery'
@@ -30,7 +29,6 @@ function App() {
         </Routes>
       </main>
       {isHome && <Footer />}
-      <CallButton />
       <WhatsAppButton />
     </div>
   )
