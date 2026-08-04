@@ -6,6 +6,7 @@
   --color-maroon-dark: #4a0a17;
   --color-gold: #d9a83f;
   --color-gold-light: #f0c869;
+  --color-gold-dark: #a97d1e;
   --color-cream: #fdf8ec;
   --color-cream-dark: #f5ecd8;
 }
@@ -25,4 +26,61 @@ h1, h2, h3, .font-display {
   width: 90px;
   background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
   margin: 0 auto;
+}
+
+/* Slow drift on the hero backdrop so even a still frame feels alive */
+@keyframes hero-kenburns {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.18) translate3d(-1.5%, -1.5%, 0);
+  }
+}
+
+.hero-kenburns {
+  animation: hero-kenburns 12s ease-out forwards;
+}
+
+/* Hero copy fading in on each slide change */
+@keyframes hero-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-text-in {
+  animation: hero-text-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll-triggered entrance, driven by the Reveal component */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kenburns,
+  .hero-text-in {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

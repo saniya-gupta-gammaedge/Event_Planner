@@ -2,7 +2,7 @@ import { company, callLink } from '../data/company'
 
 export default function Footer() {
   return (
-    <footer className="bg-cream-dark text-neutral-700 mt-16 border-t-2 border-gold">
+    <footer className="bg-cream-dark text-neutral-700 border-t-2 border-gold">
       <div className="max-w-6xl mx-auto px-4 py-10 grid gap-8 sm:grid-cols-3">
         <div>
           <h3 className="font-display text-maroon font-semibold text-lg mb-2">{company.name}</h3>
