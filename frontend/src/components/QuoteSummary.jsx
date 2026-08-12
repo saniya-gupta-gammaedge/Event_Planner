@@ -1,6 +1,4 @@
 import { useQuote } from "../context/QuoteContext";
-import { generateWhatsAppMessage } from "../utils/whatsappQuote";
-import { whatsappLink } from "../data/company";
 
 export default function QuoteSummary() {
   const {
@@ -8,22 +6,17 @@ export default function QuoteSummary() {
     removeFromQuote,
     clearQuote,
     totalPrice,
-    customer,
     errors,
-    validate,
+    requestQuote,
   } = useQuote();
 
   const handleRequestQuote = () => {
-    if (!validate()) {
+    if (!requestQuote()) {
       // The name/phone fields sit below this panel — bring them into view.
       document
         .getElementById("customer-details")
         ?.scrollIntoView({ behavior: "smooth", block: "center" });
-      return;
     }
-
-    const message = generateWhatsAppMessage(customer, quoteItems, totalPrice);
-    window.open(whatsappLink(message), "_blank", "noopener");
   };
 
   return (
