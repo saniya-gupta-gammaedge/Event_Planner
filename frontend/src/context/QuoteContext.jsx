@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { generateWhatsAppMessage } from "../utils/whatsappQuote";
+import { whatsappLink } from "../data/company";
 
 const QuoteContext = createContext();
 
@@ -96,8 +98,15 @@ export function QuoteProvider({ children }) {
     const digits = customer.phone.replace(/\D/g, "");
     if (!digits) {
       found.phone = "Please enter your phone number.";
-    } else if (digits.length < 10) {
+    } else if (digits.length !== 10) {
       found.phone = "Enter a valid 10-digit phone number.";
+    }
+
+    const todayStr = new Date().toISOString().slice(0, 10);
+    if (!customer.eventDate) {
+      found.eventDate = "Please select your event date.";
+    } else if (customer.eventDate < todayStr) {
+      found.eventDate = "Event date can't be in the past.";
     }
 
     setErrors(found);
@@ -111,6 +120,28 @@ export function QuoteProvider({ children }) {
       delete next[field];
       return next;
     });
+
+  /**
+   * Validates, saves the submission on the backend, then opens WhatsApp.
+   * Returns true on success so callers (the quote panel or the customer
+   * details form — either can trigger a send) know whether to send.
+   */
+  const requestQuote = () => {
+    if (!validate()) return false;
+
+    const apiUrl = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+    fetch(`${apiUrl}/api/quotes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ customer, items: quoteItems, totalPrice }),
+    }).catch(() => {
+      // Offline or backend down — the WhatsApp message is still the source of truth.
+    });
+
+    const message = generateWhatsAppMessage(customer, quoteItems, totalPrice);
+    window.open(whatsappLink(message), "_blank", "noopener");
+    return true;
+  };
 
   return (
     <QuoteContext.Provider
@@ -130,6 +161,7 @@ export function QuoteProvider({ children }) {
         errors,
         validate,
         clearError,
+        requestQuote,
       }}
     >
       {children}

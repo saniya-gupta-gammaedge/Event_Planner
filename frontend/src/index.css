@@ -11,6 +11,13 @@
   --color-cream-dark: #f5ecd8;
 }
 
+/* Tailwind sizes padding, gaps, headings etc. relative to this root size —
+   scaling it down here reproduces an 80%-browser-zoom look everywhere,
+   without having to touch every page's classes individually. */
+html {
+  font-size: 80%;
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', system-ui, 'Segoe UI', Roboto, sans-serif;
