@@ -8,7 +8,9 @@ const links = [
   { to: '/gallery', label: 'Photos' },
   { to: '/videos', label: 'Videos' },
   { to: '/rent', label: 'Rent' },
+  { to: '/lawn', label: 'Lawn' },
   { to: '/about', label: 'About' },
+  { to: '/admin/lawn', label: 'Admin' },
 ]
 
 const linkClass = ({ isActive }) =>

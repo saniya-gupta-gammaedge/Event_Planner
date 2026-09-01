@@ -5,6 +5,7 @@ export const company = {
   phones: ['09425381862', '70008 51226', '09425629350'],
   primaryPhone: '09425381862',
   address: 'Jain Dadawadi, Chakkar Road, Betul (M.P.)',
+  lawnName: 'Jain Dadawadi',
 }
 
 function digitsOnly(phone) {

@@ -28,6 +28,10 @@ const pages = {
     description:
       'Rent chairs, pillows, mattresses, carpets and generators in Betul. Build your own quote and send it on WhatsApp.',
   },
+  '/lawn': {
+    title: `${company.lawnName} Lawn Availability`,
+    description: `Check which dates ${company.lawnName} lawn is available for weddings and functions in Betul, then book on WhatsApp.`,
+  },
   '/about': {
     title: 'About Us',
     description: `${company.name} is a family-run tent and lighting business in Betul, run by ${company.owners.join(' and ')}.`,
