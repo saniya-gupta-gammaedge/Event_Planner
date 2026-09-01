@@ -8,7 +8,11 @@ app = FastAPI(title="Celebrare Events API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://event-planner-ten-ivory.vercel.app/"],
+    allow_origins=[
+        "https://event-planner-ten-ivory.vercel.app",  # no trailing slash — browsers never send one
+        "http://localhost:5173",  # local frontend dev server
+        "http://127.0.0.1:5173",
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
