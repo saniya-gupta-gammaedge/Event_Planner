@@ -65,6 +65,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Lawn availability */}
+      <section className="bg-cream py-20">
+        <div className="mx-auto max-w-5xl px-6">
+          <Reveal>
+            <div className="rounded-3xl border-2 border-maroon/20 bg-gradient-to-br from-white to-cream-dark p-10 text-center sm:p-14">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-maroon">
+                Lawn For Weddings & Functions
+              </p>
+
+              <h2 className="font-display mt-4 text-3xl font-bold text-maroon sm:text-4xl">
+                Check Lawn Availability
+              </h2>
+
+              <p className="mx-auto mt-4 max-w-2xl text-neutral-600">
+                See which dates are already booked and which are free, then
+                reach out to confirm your event date with us.
+              </p>
+
+              <Link
+                to="/lawn"
+                className="mt-8 inline-block rounded-xl bg-maroon px-8 py-4 font-semibold text-white shadow-lg transition hover:bg-maroon-dark"
+              >
+                View Calendar
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Closing contact */}
       <section className="bg-cream-dark py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">

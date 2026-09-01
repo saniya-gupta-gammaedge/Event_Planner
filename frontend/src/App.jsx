@@ -10,6 +10,8 @@ import Gallery from './pages/Gallery'
 import Videos from './pages/Videos'
 import Rent from './pages/Rent'
 import About from './pages/About'
+import Lawn from './pages/Lawn'
+import AdminLawn from './pages/AdminLawn'
 
 function App() {
   usePageMeta()
@@ -25,6 +27,8 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/rent" element={<Rent />} />
+          <Route path="/lawn" element={<Lawn />} />
+          <Route path="/admin/lawn" element={<AdminLawn />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

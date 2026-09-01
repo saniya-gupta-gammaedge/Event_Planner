@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { generateWhatsAppMessage } from "../utils/whatsappQuote";
 import { whatsappLink } from "../data/company";
+import { API_URL } from "../utils/api";
 
 const QuoteContext = createContext();
 
@@ -129,8 +130,7 @@ export function QuoteProvider({ children }) {
   const requestQuote = () => {
     if (!validate()) return false;
 
-    const apiUrl = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
-    fetch(`${apiUrl}/api/quotes`, {
+    fetch(`${API_URL}/api/quotes`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ customer, items: quoteItems, totalPrice }),

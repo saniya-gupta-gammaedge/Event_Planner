@@ -28,6 +28,77 @@ h1, h2, h3, .font-display {
   font-family: 'Playfair Display', 'Georgia', serif;
 }
 
+/* Themed hover tooltip for the lawn calendar's day cells (LawnCalendar.jsx) —
+   replaces the plain native `title` tooltip. Put the message in
+   `data-tooltip` on any element; also give it `aria-label` for screen readers,
+   since data attributes carry no accessible name on their own. */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after,
+[data-tooltip]::before {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  position: absolute;
+  left: 50%;
+  z-index: 30;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  bottom: calc(100% + 9px);
+  transform: translate(-50%, 4px);
+  background: var(--color-maroon-dark);
+  color: var(--color-cream);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 7px;
+  box-shadow: 0 6px 14px rgba(74, 10, 23, 0.28);
+}
+
+[data-tooltip]::before {
+  content: "";
+  bottom: 100%;
+  transform: translate(-50%, 4px);
+  border: 5px solid transparent;
+  border-top-color: var(--color-maroon-dark);
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:hover::before,
+[data-tooltip]:focus-visible::after,
+[data-tooltip]:focus-visible::before {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Green variant — "Available" days (LawnCalendar.jsx adds this class), so it
+   reads as good news at a glance instead of the same maroon as "Booked". */
+.tooltip-available[data-tooltip]::after {
+  background: #15803d;
+  box-shadow: 0 6px 14px rgba(21, 128, 61, 0.28);
+}
+
+.tooltip-available[data-tooltip]::before {
+  border-top-color: #15803d;
+}
+
+/* Gray variant — an owner-off day ("Not Available"), distinct from the
+   maroon used for an actual customer booking. */
+.tooltip-off[data-tooltip]::after {
+  background: #52525b;
+  box-shadow: 0 6px 14px rgba(82, 82, 91, 0.28);
+}
+
+.tooltip-off[data-tooltip]::before {
+  border-top-color: #52525b;
+}
+
 .gold-divider {
   height: 3px;
   width: 90px;
