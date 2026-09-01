@@ -8,13 +8,16 @@ const fieldClass = (hasError) =>
 
 /**
  * Lets a customer formally request the date(s) they picked on the calendar
- * — a single day when startDate === endDate, or a multi-day range. This
- * does NOT block the date — it lands in the admin's queue as pending. The
- * owner accepts it once the advance payment is sorted out separately (over
- * WhatsApp/call), which is what actually books the date.
+ * — these can be any independent set of dates, not necessarily contiguous,
+ * so each one is submitted as its own request (same name/phone/note on all).
+ * This does NOT block the dates — they land in the admin's queue as pending.
+ * The owner accepts each one once the advance payment is sorted out
+ * separately (over WhatsApp/call), which is what actually books it.
  */
-export default function LawnRequestForm({ startDate, endDate, onRequested }) {
-  const rangeLabel = startDate === endDate ? startDate : `${startDate} to ${endDate}`;
+export default function LawnRequestForm({ dates, onRequested }) {
+  const sortedDates = [...dates].sort();
+  const rangeLabel = sortedDates.join(", ");
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [note, setNote] = useState("");
@@ -37,21 +40,37 @@ export default function LawnRequestForm({ startDate, endDate, onRequested }) {
 
     setSubmitting(true);
     try {
-      const res = await fetch(`${API_URL}/api/lawn/requests`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          start_date: startDate,
-          end_date: endDate,
-          name: name.trim(),
-          phone: digits,
-          note: note.trim(),
-        }),
-      });
+      const results = await Promise.allSettled(
+        sortedDates.map((date) =>
+          fetch(`${API_URL}/api/lawn/requests`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              start_date: date,
+              end_date: date,
+              name: name.trim(),
+              phone: digits,
+              note: note.trim(),
+            }),
+          }).then(async (res) => {
+            if (!res.ok) {
+              const body = await res.json().catch(() => ({}));
+              throw new Error(body.detail || `Couldn't request ${date}.`);
+            }
+          })
+        )
+      );
 
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.detail || "Couldn't submit your request. Please try again.");
+      const failed = results
+        .map((r, i) => (r.status === "rejected" ? sortedDates[i] : null))
+        .filter(Boolean);
+
+      if (failed.length === sortedDates.length) {
+        throw new Error(results[0].reason?.message || "Couldn't submit your request. Please try again.");
+      }
+
+      if (failed.length > 0) {
+        setServerError(`Couldn't request: ${failed.join(", ")} — the rest went through fine.`);
       }
 
       setSubmitted(true);
@@ -71,6 +90,7 @@ export default function LawnRequestForm({ startDate, endDate, onRequested }) {
           We'll confirm your booking once we receive the advance payment — message us on WhatsApp
           below to arrange it.
         </p>
+        {serverError && <p className="text-sm text-red-700 mt-2">{serverError}</p>}
       </div>
     );
   }
@@ -135,7 +155,7 @@ export default function LawnRequestForm({ startDate, endDate, onRequested }) {
         disabled={submitting}
         className="w-full rounded-lg bg-maroon text-white py-2.5 font-medium hover:bg-maroon-dark transition disabled:opacity-60"
       >
-        {submitting ? "Sending…" : startDate === endDate ? "Request This Date" : "Request These Dates"}
+        {submitting ? "Sending…" : sortedDates.length === 1 ? "Request This Date" : "Request These Dates"}
       </button>
     </form>
   );

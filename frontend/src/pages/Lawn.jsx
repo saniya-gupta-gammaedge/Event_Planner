@@ -12,10 +12,9 @@ export default function Lawn() {
   const [bookedRanges, setBookedRanges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [multiDay, setMultiDay] = useState(false);
-  // { start, end } once complete; end is null while a multi-day pick is
-  // still waiting for its second click. null altogether means nothing picked.
-  const [selectedRange, setSelectedRange] = useState(null);
+  // Independent toggled dates — click to select, click again to deselect.
+  // Not necessarily contiguous: deselecting one leaves the others as they were.
+  const [selectedDates, setSelectedDates] = useState(() => new Set());
 
   useEffect(() => {
     const start = toISODate(new Date(year, month, 1));
@@ -34,47 +33,36 @@ export default function Lawn() {
       .finally(() => setLoading(false));
   }, [year, month]);
 
-  const jumpToMonth = (nextYear, nextMonth) => {
-    setYear(nextYear);
-    setMonth(nextMonth);
-    setSelectedRange(null);
-  };
-
   const changeMonth = (delta) => {
     const next = new Date(year, month + delta, 1);
-    jumpToMonth(next.getFullYear(), next.getMonth());
+    setYear(next.getFullYear());
+    setMonth(next.getMonth());
+    // Selections deliberately persist across months — picking a date in
+    // September and another in October is a valid "multiple dates" pick.
   };
 
-  const handleDateClick = (iso) => {
-    if (!multiDay) {
-      setSelectedRange({ start: iso, end: iso });
-      return;
-    }
-
-    setSelectedRange((prev) => {
-      // No selection yet, or the last one was already complete — start fresh.
-      if (!prev || prev.end !== null) return { start: iso, end: null };
-      // Mid-pick: this click sets the end, unless it's earlier than the
-      // start, in which case treat it as restarting from here instead.
-      if (iso < prev.start) return { start: iso, end: null };
-      return { start: prev.start, end: iso };
+  const toggleDate = (iso) => {
+    setSelectedDates((prev) => {
+      const next = new Set(prev);
+      if (next.has(iso)) next.delete(iso);
+      else next.add(iso);
+      return next;
     });
   };
 
-  const toggleMultiDay = () => {
-    setMultiDay((v) => !v);
-    setSelectedRange(null);
+  const removeDate = (iso) => {
+    setSelectedDates((prev) => {
+      const next = new Set(prev);
+      next.delete(iso);
+      return next;
+    });
   };
 
-  const isComplete = selectedRange && selectedRange.end !== null;
-  const rangeLabel = isComplete
-    ? selectedRange.start === selectedRange.end
-      ? selectedRange.start
-      : `${selectedRange.start} to ${selectedRange.end}`
-    : null;
+  const sortedDates = [...selectedDates].sort();
+  const datesLabel = sortedDates.join(", ");
 
-  const message = rangeLabel
-    ? `Hello, I would like to check ${company.lawnName} lawn availability for ${rangeLabel} and book it.`
+  const message = sortedDates.length
+    ? `Hello, I would like to check ${company.lawnName} lawn availability for ${datesLabel} and book it.`
     : `Hello, I would like to check ${company.lawnName} lawn availability.`;
 
   return (
@@ -83,14 +71,9 @@ export default function Lawn() {
         {company.lawnName} Lawn Availability
       </h1>
 
-      <p className="text-neutral-600 mb-4 text-center">
-        Check which dates are free, then reach out to confirm your booking.
+      <p className="text-neutral-600 mb-8 text-center">
+        Click any free date to select it — click again to deselect. Pick as many dates as you need.
       </p>
-
-      <label className="flex items-center justify-center gap-2 text-sm text-neutral-600 mb-6">
-        <input type="checkbox" checked={multiDay} onChange={toggleMultiDay} className="accent-maroon" />
-        Booking more than one day
-      </label>
 
       {error && (
         <p className="text-center text-sm text-red-600 mb-4">
@@ -106,38 +89,47 @@ export default function Lawn() {
           bookedRanges={bookedRanges}
           onPrevMonth={() => changeMonth(-1)}
           onNextMonth={() => changeMonth(1)}
-          onJumpToMonth={jumpToMonth}
-          onDateClick={handleDateClick}
-          selectedRange={
-            selectedRange
-              ? { start: selectedRange.start, end: selectedRange.end ?? selectedRange.start }
-              : undefined
-          }
+          onJumpToMonth={(y, m) => {
+            setYear(y);
+            setMonth(m);
+          }}
+          onDateClick={toggleDate}
+          selectedDates={selectedDates}
         />
       </div>
 
-      {multiDay && selectedRange && !isComplete && (
-        <p className="text-center text-sm text-neutral-500 mt-2">
-          Start: <span className="font-medium text-maroon">{selectedRange.start}</span> — now click
-          the end date.
-        </p>
+      {sortedDates.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-2 mt-4">
+          {sortedDates.map((iso) => (
+            <span
+              key={iso}
+              className="inline-flex items-center gap-1.5 rounded-full bg-maroon/10 text-maroon text-sm px-3 py-1"
+            >
+              {iso}
+              <button
+                type="button"
+                onClick={() => removeDate(iso)}
+                aria-label={`Remove ${iso}`}
+                className="font-bold hover:text-maroon-dark"
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
       )}
 
-      {isComplete && (
+      {sortedDates.length > 0 && (
         <div className="max-w-sm mx-auto mt-6">
-          <LawnRequestForm
-            key={rangeLabel}
-            startDate={selectedRange.start}
-            endDate={selectedRange.end}
-          />
+          <LawnRequestForm key={datesLabel} dates={sortedDates} />
         </div>
       )}
 
       <div className="text-center mt-8">
         <p className="text-neutral-700 mb-4">
-          {isComplete
+          {sortedDates.length > 0
             ? "Prefer to talk it through first? Reach out directly:"
-            : "Pick a date above to request it, or reach out directly:"}
+            : "Pick date(s) above to request them, or reach out directly:"}
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">

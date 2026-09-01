@@ -6,8 +6,9 @@ const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
  * A month-grid calendar for lawn availability. Read-only when `onDateClick`
  * is omitted; pass it to make free, current-month, non-past dates clickable
  * — already-booked/off dates never fire it, so a caller using this as a date
- * picker gets that protection for free. Highlight either a single date via
- * `selectedDate`, or a range via `selectedRange={{ start, end }}`.
+ * picker gets that protection for free. Highlight a single date via
+ * `selectedDate`, a contiguous range via `selectedRange={{ start, end }}`,
+ * or any independent set of dates via `selectedDates` (a Set of ISO strings).
  */
 export default function LawnCalendar({
   year,
@@ -19,6 +20,7 @@ export default function LawnCalendar({
   onDateClick,
   selectedDate,
   selectedRange,
+  selectedDates,
 }) {
   const today = todayISO();
   const days = getMonthGrid(year, month);
@@ -83,7 +85,7 @@ export default function LawnCalendar({
           // color, not the "selected" ring, since it isn't really part of it.
           const inSelectedRange =
             selectedRange && !booked && iso >= selectedRange.start && iso <= selectedRange.end;
-          const selected = selectedDate === iso || inSelectedRange;
+          const selected = selectedDate === iso || inSelectedRange || Boolean(selectedDates?.has(iso));
           // Any in-month, non-past day gets a hover tooltip — including booked
           // ones, so it must stay non-`disabled` (Firefox suppresses hover
           // events, and therefore `title`, on disabled buttons).
